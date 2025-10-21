@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: #0d0d0d;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      margin-bottom: 1.2rem;
+      color: #4dd0e1;
+      text-shadow: 0 0 10px rgba(77, 208, 225, 0.7);
+      z-index: 2;
+      position: relative;
+    }
+
+    .slideshow {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+      display: none;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .caption {
+      margin-top: 0.8rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #ffcc80;
+      padding: 0 0.5rem;
+      line-height: 1.6;
+    }
+
+    .message {
+      display: none;
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      margin-top: 20px;
+      color: #ffcc80;
+      animation: fadeIn 2s ease-in-out forwards;
+      z-index: 2;
+      position: relative;
+      max-width: 90%;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .bg-heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 1.5rem;
+      color: rgba(255, 223, 0, 0.7);
+      animation: floatHearts 10s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.5) rotate(360deg); opacity: 0; }
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      background: #4dd0e1;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background: #26c6da;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday Kabsat!!! 🎂</h1>
+
+  <!-- Start Button -->
+  <button id="startBtn" class="btn">Click Me!!</button>
+
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+    <div class="slide">
+      <div class="caption">Dear Kabsat 🎈<br>
+      Another year older, wiser, and definitely prettier!<br>
+      I just want to take this moment to tell you how grateful we are to have you in our life.<br>
+      From our random talks to our craziest moments — you’ve made life a whole lot brighter!</div>
+    </div>
+
+    <div class="slide">
+      <div class="caption">You’ve always been that one person I can count on — for laughter, advice, and even nonsense rants 😂.<br>
+      Life’s just better with you around, and I hope you know how much you’re appreciated.</div>
+    </div>
+
+    <div class="slide">
+      <div class="caption">Today is YOUR day! 🎂<br>
+      So I hope you celebrate it to the fullest — eat your favorite food, laugh until your stomach hurts, and do whatever makes you happy.<br>
+      You deserve all the good things in life! 💛</div>
+    </div>
+
+    <div class="slide">
+      <div class="caption">Here’s to more adventures, more laughter, and more memories together! 🥳</div>
+    </div>
+
+    <div class="slide">
+      <div class="caption">And always remember this — I’ll always be here to guide you, protect you, and make sure you’re safe no matter what.<br>
+      You’re like family to me, and I’ll always have your back through every up and down. 💪💙. Kami ng nanay mo na si Ash ay di magsasawa sayo!!</div>
+    </div>
+  </div>
+  
+  <!-- Final Message -->
+  <div class="message" id="message">
+    🎉 Happy Birthday, Kabsat! 🎂<br>
+    You’re one of a kind — and We are lucky to have you as our friend. 💙<br>
+    I’ll always look out for you, keep you safe, and cheer you on no matter what.<br>
+    Wishing you happiness, success, and memories that make you smile every single day. 🥂 Mwaps!!!
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="123.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    let slideIndex = 0;
+    let slides = document.getElementsByClassName("slide");
+    let slideshow = document.getElementById("slideshow");
+
+    function showSlide(index) {
+      for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+      if (index < slides.length) {
+        slides[index].style.display = "flex";
+      } else {
+        slideshow.style.display = "none";
+        document.getElementById("message").style.display = "block";
+      }
+    }
+
+    function nextSlideAuto() {
+      slideIndex++;
+      showSlide(slideIndex);
+      if (slideIndex < slides.length) {
+        setTimeout(nextSlideAuto, 10000); // ⏱ Transition every 10 seconds
+      }
+    }
+
+    function createHearts() {
+      setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("bg-heart");
+        heart.innerHTML = "🎉";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+      }, 500);
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      document.getElementById("startBtn").style.display = "none";
+      slideshow.style.display = "block";
+      showSlide(slideIndex);
+      setTimeout(nextSlideAuto, 10000); // ⏱ First slide duration
+      createHearts();
+
+      const music = document.getElementById("bgMusic");
+      music.play();
+    });
+  </script>
+</body>
+</html>
